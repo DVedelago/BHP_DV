@@ -65,7 +65,7 @@ class NetCat:
       self.socket.listen(5)
       while True:
          client_socket, _ = self.socket.accept()
-         client_thread = threading.Thread(target=self.handle, args=(client_socket))
+         client_thread = threading.Thread(target=self.handle, args=(client_socket,))
          client_thread.start()
 
    def handle(self, client_socket):
@@ -103,7 +103,7 @@ class NetCat:
                print(f'Server killed {e}')
                self.socket.close()
                sys.exit()
-      
+         
 
 #*********************************************************************#
 
@@ -139,13 +139,13 @@ if __name__ == '__main__':
    parser.add_argument('-p', '--port', type=int, default=5555, help='Specified port')     # -p specifies the port on which communicate
    parser.add_argument('-t', '--target', default='192.168.1.203', help='Specified IP')    # -t specifies the target IP
    parser.add_argument('-u', '--upload', help='Upload file')                              # -u specifies the name of a file to upload 
-
    args = parser.parse_args()
 
    if args.listen:                                                                        # (4) if setting up a listener, invoke NetCat obj
       buffer = ''
    else:
       buffer = sys.stdin.read()
+
    nc = NetCat(args, buffer.encode())
    nc.run()
    
