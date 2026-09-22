@@ -5,8 +5,8 @@ import threading
 
 # Creates a LUT for ASCII printable and non-printable characters by checking the length
 
-# HEX_FILTER= ''.join([(len(repr(chr(i))) == 3) and chr(i) or '.' for i in range(256)])
-HEX_FILTER= ''.join(chr(i) if len(repr(chr(i))) == 3 else '.')
+#HEX_FILTER= ''.join([(len(repr(chr(i))) == 3) and chr(i) or '.' for i in range(256)])
+HEX_FILTER= ''.join(chr(i) if len(repr(chr(i))) == 3 else '.' for i in range(256))
 def hexdump(src, length=16, show=True):
     if isinstance(src, bytes):
         src = src.decode()
